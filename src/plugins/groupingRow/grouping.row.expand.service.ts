@@ -1,18 +1,19 @@
 import { RevoGrid } from '../../interfaces';
 import { PSEUDO_GROUP_ITEM_ID, GROUP_EXPANDED, GROUP_DEPTH } from './grouping.const';
 import { isGrouping, getParsedGroup, isSameGroup } from './grouping.service';
-
+import _ from 'lodash'
 // provide collapse data
 export function doCollapse(pIndex: number, source: RevoGrid.DataType[]) {
   const model = source[pIndex];
-  const currentId = model[PSEUDO_GROUP_ITEM_ID];
+  const deep = JSON.parse(model[GROUP_DEPTH]);
+  const currentId = JSON.parse(model[PSEUDO_GROUP_ITEM_ID]).slice(0, deep + 1);
   const trimmed: Record<number, boolean> = {};
   let i = pIndex + 1;
   const total = source.length;
   while (i < total) {
     const currentModel = source[i];
     if (isGrouping(currentModel)) {
-      if (currentId !== currentModel[PSEUDO_GROUP_ITEM_ID]) {
+      if (!_.isEqual(currentId, JSON.parse(currentModel[PSEUDO_GROUP_ITEM_ID]).slice(0, deep+ 1))) {
         break;
       } else {
         currentModel[GROUP_EXPANDED] = false;

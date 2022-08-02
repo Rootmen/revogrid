@@ -94,7 +94,7 @@
       <button onclick="clearGrouping()">Clear grouping</button>
       <button onclick="setTrimmed([3])">Set trimmed 3</button>
       <button onclick="setTrimmed([])">Clear trimmed</button>
-      <button onclick="setGrouping(['key'])">Set grouping by 'key'</button>
+      <button onclick="setGrouping(['0', '2', '3'])">Set grouping by 'key'</button>
       <button onclick="exportGrid()">Export to csv</button>
       <button onclick="scrollToCol(30)">Scroll to column 30</button>
       <button onclick="setEdit(30, 10)">Set edit 30:1</button>
@@ -172,7 +172,7 @@
         const grid = document.querySelector('revo-grid');
         grid.grouping = {};
       };
-      window.setGrouping = function (props = [], expandedAll = false) {
+      window.setGrouping = function (props = [], expandedAll = true) {
         const grid = document.querySelector('revo-grid');
         grid.grouping = { props, expandedAll };
       };
@@ -220,7 +220,7 @@
           if (!grid.columns || grid.columns.length != data.headers.length) {
             grid.columns = data.headers;
           }
-          
+
           grid.source = data.rows;
 
           grid.pinnedTopSource = data.pinnedTopRows;
@@ -283,12 +283,12 @@
           index: 1,
           size: 100
       }];
-      /* 
+      /*
         grid.autoSizeColumn = {
           mode: 'autoSizeAll',
         };*/
       // default
-      setData({ rows: 100, cols: 10, 'colPinEnd': [2] });
+      setData({ rows: 10, cols: 10, 'colPinEnd': [2] });
 
       // events testing
       // 'beforerange', 'setRange', 'beforefocuslost', 'beforecellfocus', 'beforeedit'

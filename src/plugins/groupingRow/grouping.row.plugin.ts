@@ -75,6 +75,7 @@ export default class GroupingRowPlugin extends BasePlugin {
 
   // get source based on proxy item collection to preserve rgRow order
   private getSource(withoutGrouping = false) {
+    ;
     const source = this.store.get('source');
     const items = this.store.get('proxyItems');
     let index = 0;
@@ -192,6 +193,7 @@ export default class GroupingRowPlugin extends BasePlugin {
    * Initiated when need to reapply grouping
    */
   private doSourceUpdate(options?: ExpandedOptions) {
+    ;
     if (!this.hasProps) {
       return;
     }

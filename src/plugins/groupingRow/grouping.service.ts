@@ -1,6 +1,6 @@
 import { RevoGrid } from '../../interfaces';
 import { GROUP_DEPTH, GROUP_EXPANDED, PSEUDO_GROUP_COLUMN, PSEUDO_GROUP_ITEM, PSEUDO_GROUP_ITEM_ID, PSEUDO_GROUP_ITEM_VALUE } from './grouping.const';
-
+import _ from 'lodash'
 type Group<T> = {
   id: string;
   // Map with Previous index / item format
@@ -19,6 +19,7 @@ export type ExpandedOptions = {
  */
 
 function groupBy<T>(array: T[], f: (v: T) => any) {
+  ;
   const groupsOrder: Group<T>[] = [];
 
   const itemsByGroup: Record<string, Map<number, T>> = {};
@@ -38,7 +39,7 @@ function groupBy<T>(array: T[], f: (v: T) => any) {
     // save to group with previous index
     itemsByGroup[groupKeys].set(i, item);
   });
-  return groupsOrder;
+  return _.sortBy(groupsOrder, ['id']);
 }
 
 /**
@@ -176,6 +177,7 @@ export function getParsedGroup(id: string): any[] {
 
 // check if items is child of current clicked group
 export function isSameGroup(currentGroup: any[], currentModel: RevoGrid.DataType, nextModel: RevoGrid.DataType) {
+  ;
   const nextGroup = getParsedGroup(nextModel[PSEUDO_GROUP_ITEM_ID]);
   if (!nextGroup) {
     return false;
